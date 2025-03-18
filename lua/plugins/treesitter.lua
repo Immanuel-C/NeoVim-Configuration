@@ -13,6 +13,7 @@ return { -- Highlight, edit, and navigate code
       'markdown_inline',
       'bash',
       'cpp',
+      'rust'
     },
     -- Autoinstall languages that are not installed
     auto_install = true,

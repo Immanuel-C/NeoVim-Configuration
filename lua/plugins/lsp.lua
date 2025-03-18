@@ -15,6 +15,8 @@ return {
     { 'hrsh7th/cmp-nvim-lsp' },
   },
   config = function()
+
+
     -- Brief aside: **What is LSP?**
     --
     -- LSP is an initialism you've probably heard, but might not understand what it is.
@@ -123,11 +125,32 @@ return {
           })
         end
 
+
+        local bufnr = vim.api.nvim_get_current_buf()
+        vim.keymap.set(
+          "n",
+          "<leader>a",
+          function()
+            vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
+            -- or vim.lsp.buf.codeAction() if you don't want grouping.
+          end,
+          { silent = true, buffer = bufnr }
+        )
+        vim.keymap.set(
+          "n",
+          "<C-Space>",
+          function()
+            vim.cmd.RustLsp({'hover', 'actions'})
+          end,
+          { silent = true, buffer = bufnr }
+        )
+
         -- The following code creates a keymap to toggle inlay hints in your
         -- code, if the language server you are using supports them
         --
         -- This may be unwanted, since they displace some of your code
         if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+          vim.lsp.inlay_hint.enable(true, {bufnr = event.buf})
           map('<leader>th', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
@@ -154,9 +177,10 @@ return {
     local servers = {
       clangd = {},
       codelldb = {},
+      -- Shading language slang
+      slang = {},
       -- gopls = {},
       -- pyright = {},
-      -- rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
       -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -164,6 +188,7 @@ return {
       --
       -- But for many setups, the LSP (`tsserver`) will work just fine
       ruff = {},
+      rust_analyzer = {},
       pylsp = {
         settings = {
           pylsp = {
@@ -226,6 +251,9 @@ return {
     require('mason-lspconfig').setup {
       handlers = {
         function(server_name)
+          if server_name == "rust_analyzer" then
+            return
+          end
           local server = servers[server_name] or {}
           -- This handles overriding only values explicitly passed
           -- by the server configuration above. Useful when disabling
