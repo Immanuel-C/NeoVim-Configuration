@@ -25,6 +25,7 @@ require("lazy").setup({
     require("plugins.dap-ui"),
     require("plugins.todo-comments"),
     require("plugins.lualine"),
+    require("plugins.avante"),
 })
 
 
