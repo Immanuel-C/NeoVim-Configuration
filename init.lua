@@ -11,6 +11,41 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+
+
+vim.g.rustaceanvim = {
+  server = {
+    default_settings = {
+      ["rust-analyzer"] = {
+        rustup = {
+          enabled = true,
+        },
+        cargo = {
+          sysroot = vim.fn.systemlist("rustc --print sysroot")[1],
+        },
+        diagnostics = {
+          disabled = { "unlinked-file" }, -- allow standalone files
+        },
+        files = {
+          excludeDirs = {}, -- ensure nothing extra is excluded
+        },
+      },
+
+    },
+    settings = {
+      ["rust-analyzer"] = {
+        diagnostics = {
+          disabled = { "unlinked-file" }, -- allow standalone files
+        },
+        files = {
+          excludeDirs = {}, -- ensure nothing extra is excluded
+        },
+      detectDetachedFiles = true,
+      },
+    },
+  },
+}
+
 require("lazy").setup({
     require("plugins.neotree"),
     require("plugins.gruvbox"),
@@ -25,7 +60,27 @@ require("lazy").setup({
     require("plugins.dap-ui"),
     require("plugins.todo-comments"),
     require("plugins.lualine"),
-    require("plugins.avante"),
+    require("plugins.leetcode"),
 })
 
+
+-- local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+--
+-- vim.g.rustaceanvim = {
+--   server = {
+--     default_settings = {
+--       ["rust-analyzer"] = {
+--         rustup = {
+--           enabled = true,
+--         },
+--         cargo = {
+--           sysroot = vim.fn.systemlist("rustc --print sysroot")[1],
+--         },
+--       },
+--
+--     },
+--
+--     capabilities = cmp_capabilities,
+--   },
+-- }
 

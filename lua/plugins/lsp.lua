@@ -179,7 +179,7 @@ return {
       --
       -- But for many setups, the LSP (`tsserver`) will work just fine
       ruff = {},
-      rust_analyzer = {},
+      wgsl_analyzer = {},
       pylsp = {
         settings = {
           pylsp = {
@@ -230,7 +230,6 @@ return {
     --
     --  You can press `g?` for help in this menu.
     require('mason').setup()
-
     -- You can add other tools here that you want Mason to install
     -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
@@ -242,9 +241,6 @@ return {
     require('mason-lspconfig').setup {
       handlers = {
         function(server_name)
-          if server_name == "rust_analyzer" then
-            return
-          end
           local server = servers[server_name] or {}
           -- This handles overriding only values explicitly passed
           -- by the server configuration above. Useful when disabling
@@ -256,3 +252,5 @@ return {
     }
   end,
 }
+
+

@@ -53,5 +53,9 @@ map('v', 'p', '"_dP', DEFAULT_MAP_OPTS)
 -- LSP
 map("n", "<leader>df", vim.diagnostic.open_float, DEFAULT_MAP_OPTS)
 
--- Avante
-map( "n", "<leader>a", "<Cmd>AvanteToggle<Cr>", DEFAULT_MAP_OPTS )
+-- Leet
+map("n", "<leader>lm", ":Leet<CR>", DEFAULT_MAP_OPTS)
+map("n", "<leader>lr", ":Leet run<CR>", DEFAULT_MAP_OPTS)
+map("n", "<leader>ls", ":Leet submit<CR>", DEFAULT_MAP_OPTS)
+map("n", "<leader>ll", ":Leet list<CR>", DEFAULT_MAP_OPTS)
+map("n", "<leader>lR", ":Leet random difficulty=", DEFAULT_MAP_OPTS)

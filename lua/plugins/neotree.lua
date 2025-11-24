@@ -12,7 +12,14 @@ return {
 
         require("neo-tree").setup({
             window = {
-                position = "left"
+                position = "top"
+            },
+            filesystem = {
+                filtered_items = {
+                    hide_gitignored = false,
+                    hide_hidden = false,
+                    hide_dotfiles = false,
+                }
             }
         })
     end
